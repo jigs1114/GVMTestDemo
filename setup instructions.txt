@@ -3,4 +3,6 @@ Clone is the repo from this url : https://github.com/jigs1114/GVMTestDemo.git
 Step : 2
 After clone go to the directory and run command "npm i"
 Step : 3
+run command "npm start"
+Step : 4
 Do user registration and login 
