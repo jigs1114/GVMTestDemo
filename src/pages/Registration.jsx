@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { Link} from 'react-router-dom'
+import { Link, useNavigate} from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 function Registration() {
+    const navigate =  useNavigate()
     const initialValue = {
         name: '',
         email: '',
@@ -46,6 +47,11 @@ function Registration() {
         }
 
         let usersList = JSON.parse(localStorage.getItem('userslist')) || [];
+        const user = usersList.find(user => user.email === email );
+        if(user){
+            toast.error("Email id is already exist!");
+            return;
+        }
         usersList.push({ name, email, password });
 
         localStorage.setItem('userslist', JSON.stringify(usersList));
@@ -53,6 +59,7 @@ function Registration() {
         setFormData({ name: "", email: "", password: "", confirmPassword: "" });
 
         toast.success("User registered successfully!");
+        navigate('/');
     };
 
     return (
@@ -78,7 +85,7 @@ function Registration() {
                                     className="form-control" name='password' value={formData.password} placeholder="Password" />
                             </div>
                             <div className="mb-3">
-                                <label className="form-label">Password</label>
+                                <label className="form-label">Confirm Password</label>
                                 <input type="password" onChange={onChangeHandle}
                                     className="form-control" name='confirmPassword' value={formData.confirmPassword} placeholder="Confirm Password" />
                             </div>
